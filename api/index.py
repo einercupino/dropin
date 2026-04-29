@@ -20,6 +20,10 @@ def home():
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
         <style>
+            .container {
+                max-width: 900px;
+                margin: 0 auto;
+            }
             body {
                 font-family: 'Inter', sans-serif;
                 background: #f5f7fa;
@@ -36,7 +40,7 @@ def home():
                 padding: 20px;
                 border-radius: 10px;
                 box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-                max-width: 500px;
+                width: 100%;
             }
 
             .row {
@@ -74,10 +78,12 @@ def home():
 
             #output {
                 margin-top: 25px;
-                max-width: 700px;
+                width: 100%;
             }
 
             .facility {
+                width: 100%;
+                box-sizing: border-box;
                 background: white;
                 padding: 15px;
                 border-radius: 10px;
@@ -104,40 +110,41 @@ def home():
     </head>
 
     <body>
-
-        <h2>🏸 Drop-In Sports - Toronto</h2>
-
-        <form onsubmit="search(event)">
-            <div class="form-row">
-                
-                <div>
-                    <label>Start Date</label><br>
-                    <input type="date" id="start">
+        <div class="container">
+            <h2>🏸 Drop-In Sports - Toronto</h2>
+    
+            <form onsubmit="search(event)">
+                <div class="form-row">
+                    
+                    <div>
+                        <label>Start Date</label><br>
+                        <input type="date" id="start">
+                    </div>
+            
+                    <div>
+                        <label>End Date</label><br>
+                        <input type="date" id="end">
+                    </div>
+            
+                    <div>
+                        <label>Sport</label><br>
+                        <select id="sport">
+                            <option value="both">Both</option>
+                            <option value="badminton">Badminton</option>
+                            <option value="pickleball">Pickleball</option>
+                        </select>
+                    </div>
+            
+                    <div style="align-self: flex-end;">
+                        <button type="submit">Search</button>
+                    </div>
+            
                 </div>
+            </form>
+    
+            <div id="output"></div>
+        </div>
         
-                <div>
-                    <label>End Date</label><br>
-                    <input type="date" id="end">
-                </div>
-        
-                <div>
-                    <label>Sport</label><br>
-                    <select id="sport">
-                        <option value="both">Both</option>
-                        <option value="badminton">Badminton</option>
-                        <option value="pickleball">Pickleball</option>
-                    </select>
-                </div>
-        
-                <div style="align-self: flex-end;">
-                    <button type="submit">Search</button>
-                </div>
-        
-            </div>
-        </form>
-
-        <div id="output"></div>
-
         <script>
         async function search(e){
             e.preventDefault();

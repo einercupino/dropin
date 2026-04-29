@@ -134,6 +134,7 @@ def arcgis_get_facilities() -> List[Dict[str, str]]:
             break
         for feat in feats:
             a = feat.get("attributes", {})
+            print(a)
             loc = a.get("locationid")
             name = a.get("complexname")
             if loc and name:

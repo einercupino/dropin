@@ -114,7 +114,7 @@ def arcgis_get_facilities() -> List[Dict[str, str]]:
     )
     params = {
         "where": "show_on_sports_map = 'Yes'",
-        "outFields": "locationid,complexname,address,street,postalcode",
+        "outFields": "locationid,complexname",
         "returnGeometry": "false",
         "f": "json",
         "resultRecordCount": 1000,

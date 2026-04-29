@@ -88,6 +88,18 @@ def home():
             .facility h3 {
                 margin-bottom: 8px;
             }
+
+            .form-row {
+                display: flex;
+                gap: 15px;
+                align-items: flex-end;
+                flex-wrap: wrap; /* keeps it responsive */
+            }
+            
+            .form-row div {
+                display: flex;
+                flex-direction: column;
+            }
         </style>
     </head>
 

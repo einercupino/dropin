@@ -21,7 +21,7 @@ def home():
 
         <style>
             .container {
-                max-width: 900px;
+                max-width: 800px;
                 margin: 0 auto;
             }
             body {

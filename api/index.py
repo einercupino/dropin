@@ -194,7 +194,7 @@ def home():
                 address.style.fontSize = "14px";
                 address.style.color = "#666";
                 address.style.margin = "5px 0 10px 0";
-                address.style.marginLeft = "50px"; 
+                address.style.marginLeft = "40px"; 
                 
                 div.appendChild(address);
 

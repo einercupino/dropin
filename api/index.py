@@ -127,7 +127,7 @@ def home():
                     </div>
             
                     <div>
-                        <label>Sport</label><br>
+                        <label>Badminton or Pickleball</label><br>
                         <select id="sport">
                             <option value="both">Both</option>
                             <option value="badminton">Badminton</option>

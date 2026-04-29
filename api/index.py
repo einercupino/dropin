@@ -186,7 +186,13 @@ def home():
                 title.appendChild(pin);
                 title.appendChild(link);
                 div.appendChild(title);
-            
+                const address = document.createElement("p");
+                address.textContent = fac.address + (fac.postal ? ", " + fac.postal : "");
+                address.style.fontSize = "14px";
+                address.style.color = "#666";
+                address.style.margin = "5px 0 10px 0";
+                
+                div.appendChild(address);
                 const list = document.createElement("ul");
             
                 fac.events.forEach(ev => {

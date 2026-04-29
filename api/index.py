@@ -12,17 +12,22 @@ app = FastAPI()
 @app.get("/", response_class=HTMLResponse)
 def home():
     return """
-    <h2>Find Drop-In Sports</h2>
+    <h2>List Drop-In Sports - Toronto</h2>
     <form onsubmit="search(event)">
-        Start Date: <input type="date" id="start"><br><br>
-        End Date: <input type="date" id="end"><br><br>
+        <div style="margin-bottom:10px;">
+            Start Date: <input type="date" id="start">
+            &nbsp;&nbsp;&nbsp;
+            End Date: <input type="date" id="end">
+        </div>
 
-        Sport:
-        <select id="sport">
-            <option value="both">Both</option>
-            <option value="badminton">Badminton</option>
-            <option value="pickleball">Pickleball</option>
-        </select><br><br>
+        <div style="margin-bottom:10px;">
+            Badminton or Pickleball:
+            <select id="sport">
+                <option value="both">Both</option>
+                <option value="badminton">Badminton</option>
+                <option value="pickleball">Pickleball</option>
+            </select>
+        </div>
 
         <button type="submit">Search</button>
     </form>

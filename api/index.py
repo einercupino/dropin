@@ -148,19 +148,27 @@ def home():
             data.results.forEach(fac => {
                 const div = document.createElement("div");
                 div.className = "facility";
-
+            
                 const title = document.createElement("h3");
-                title.textContent = fac.facility;
+            
+                const link = document.createElement("a");
+                const query = encodeURIComponent(fac.facility + " Toronto");
+            
+                link.href = `https://www.google.com/maps/search/?api=1&query=${query}`;
+                link.target = "_blank";
+                link.textContent = "📍 " + fac.facility;
+            
+                title.appendChild(link);
                 div.appendChild(title);
-
+            
                 const list = document.createElement("ul");
-
+            
                 fac.events.forEach(ev => {
                     const li = document.createElement("li");
                     li.textContent = `${ev.date} | ${ev.time} | ${ev.sport} | Age: ${ev.age}`;
                     list.appendChild(li);
                 });
-
+            
                 div.appendChild(list);
                 output.appendChild(div);
             });

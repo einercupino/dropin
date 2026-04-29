@@ -36,16 +36,27 @@ def home():
         <script>
         async function search(e){
             e.preventDefault();
-
+        
             const start = document.getElementById("start").value;
             const end = document.getElementById("end").value;
             const sport = document.getElementById("sport").value;
-
-            const res = await fetch(`/api?start_date=${start}&end_date=${end}&sport=${sport}`);
-            const data = await res.json();
-
-            document.getElementById("output").textContent =
-                JSON.stringify(data, null, 2);
+        
+            console.log("Searching:", start, end, sport);
+        
+            try {
+                const res = await fetch(`/api?start_date=${start}&end_date=${end}&sport=${sport}`);
+                console.log("Response status:", res.status);
+        
+                const data = await res.json();
+                console.log("Data:", data);
+        
+                document.getElementById("output").textContent =
+                    JSON.stringify(data, null, 2);
+        
+            } catch (err) {
+                console.error(err);
+                document.getElementById("output").textContent = "Error: " + err.message;
+            }
         }
         </script>
     </body>

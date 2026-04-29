@@ -96,30 +96,32 @@ def home():
         <h2>🏸 Drop-In Sports - Toronto</h2>
 
         <form onsubmit="search(event)">
-            <div class="row">
+            <div class="form-row">
+                
                 <div>
                     <label>Start Date</label><br>
                     <input type="date" id="start">
                 </div>
-
+        
                 <div>
                     <label>End Date</label><br>
                     <input type="date" id="end">
                 </div>
-            </div>
-
-            <div class="row">
+        
                 <div>
-                    <label>Badminton or Pickleball</label><br>
+                    <label>Sport</label><br>
                     <select id="sport">
                         <option value="both">Both</option>
                         <option value="badminton">Badminton</option>
                         <option value="pickleball">Pickleball</option>
                     </select>
                 </div>
+        
+                <div style="align-self: flex-end;">
+                    <button type="submit">Search</button>
+                </div>
+        
             </div>
-
-            <button type="submit">Search</button>
         </form>
 
         <div id="output"></div>

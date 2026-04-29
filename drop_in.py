@@ -137,10 +137,10 @@ def arcgis_get_facilities() -> List[Dict[str, str]]:
             loc = a.get("locationid")
             name = a.get("complexname")
             if loc and name:
-            facilities.append({
-                "locationid": str(loc),
-                "name": name
-            })   
+                facilities.append({
+                    "locationid": str(loc),
+                    "name": name
+                })   
         if len(feats) < params["resultRecordCount"]:
             break
         params["resultOffset"] += params["resultRecordCount"]

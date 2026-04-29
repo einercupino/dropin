@@ -8,56 +8,42 @@ from drop_in import get_events
 
 app = FastAPI()
 
-# 👉 Serve your frontend here
+# UI
 @app.get("/", response_class=HTMLResponse)
 def home():
     return """
-    <html>
-    <head><title>Drop-In Sports</title></head>
-    <body>
-        <h2>Find Drop-In Sports</h2>
+    <h2>Find Drop-In Sports</h2>
+    <form onsubmit="search(event)">
+        Start Date: <input type="date" id="start"><br><br>
+        End Date: <input type="date" id="end"><br><br>
+        Sport:
+        <select id="sport">
+            <option value="both">Both</option>
+            <option value="badminton">Badminton</option>
+            <option value="pickleball">Pickleball</option>
+        </select><br><br>
+        <button type="submit">Search</button>
+    </form>
+    <pre id="output"></pre>
 
-        <form onsubmit="search(event)">
-            Start Date: <input type="date" id="start"><br><br>
-            End Date: <input type="date" id="end"><br><br>
+    <script>
+    async function search(e){
+        e.preventDefault();
 
-            Sport:
-            <select id="sport">
-                <option value="both">Both</option>
-                <option value="badminton">Badminton</option>
-                <option value="pickleball">Pickleball</option>
-            </select><br><br>
+        const start = document.getElementById("start").value;
+        const end = document.getElementById("end").value;
+        const sport = document.getElementById("sport").value;
 
-            <button type="submit">Search</button>
-        </form>
+        const res = await fetch(`/api?start_date=${start}&end_date=${end}&sport=${sport}`);
+        const data = await res.json();
 
-        <pre id="output"></pre>
-
-        <script>
-        async function search(e){
-            e.preventDefault();
-        
-            const start = document.getElementById("start").value;
-            const end = document.getElementById("end").value;
-            const sport = document.getElementById("sport").value;
-        
-            try {
-                const res = await fetch(`/api/api?start_date=${start}&end_date=${end}&sport=${sport}`);
-                const data = await res.json();
-        
-                document.getElementById("output").textContent =
-                    JSON.stringify(data, null, 2);
-        
-            } catch (err) {
-                document.getElementById("output").textContent = "Error: " + err.message;
-            }
-        }
-        </script>
-    </body>
-    </html>
+        document.getElementById("output").textContent =
+            JSON.stringify(data, null, 2);
+    }
+    </script>
     """
 
-# 👉 API endpoint
-@app.get("/api")
+# API (IMPORTANT: ROOT, not /api)
+@app.get("/")
 def api(start_date: str, end_date: str, sport: str = "both"):
     return {"results": get_events(start_date, end_date, sport)}

@@ -170,9 +170,12 @@ def home():
             
                 link.href = `https://www.google.com/maps/search/?api=1&query=${query}`;
                 link.target = "_blank";
-                link.textContent = "📍 " + fac.facility;
-            
-                title.appendChild(link);
+                const pin = document.createElement("span");
+                pin.textContent = "📍 ";
+                pin.style.marginRight = "5px";
+                
+                title.appendChild(pin);
+                title.appendChild(link); 
                 div.appendChild(title);
             
                 const list = document.createElement("ul");

@@ -114,7 +114,7 @@ def arcgis_get_facilities() -> List[Dict[str, str]]:
     )
     params = {
         "where": "show_on_sports_map = 'Yes'",
-        "outFields": "locationid,complexname",
+        "outFields": "locationid,complexname,address",
         "returnGeometry": "false",
         "f": "json",
         "resultRecordCount": 1000,
@@ -139,8 +139,9 @@ def arcgis_get_facilities() -> List[Dict[str, str]]:
             if loc and name:
                 facilities.append({
                     "locationid": str(loc),
-                    "name": name
-                })   
+                    "name": name,
+                    "address": a.get("address") or ""
+                })
         if len(feats) < params["resultRecordCount"]:
             break
         params["resultOffset"] += params["resultRecordCount"]
@@ -213,6 +214,7 @@ def get_events(start_date: str, end_date: str, sport: str = "both") -> List[Dict
             results.append({
                 "facility": f["name"],
                 "locationid": f["locationid"],
+                "address": f.get("address", ""),
                 "events": [
                     {
                         "date": e.get("d"),

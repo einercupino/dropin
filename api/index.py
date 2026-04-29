@@ -8,7 +8,6 @@ from drop_in import get_events
 
 app = FastAPI()
 
-# UI
 @app.get("/", response_class=HTMLResponse)
 def home():
     return """
@@ -16,14 +15,17 @@ def home():
     <form onsubmit="search(event)">
         Start Date: <input type="date" id="start"><br><br>
         End Date: <input type="date" id="end"><br><br>
+
         Sport:
         <select id="sport">
             <option value="both">Both</option>
             <option value="badminton">Badminton</option>
             <option value="pickleball">Pickleball</option>
         </select><br><br>
+
         <button type="submit">Search</button>
     </form>
+
     <pre id="output"></pre>
 
     <script>
@@ -34,7 +36,7 @@ def home():
         const end = document.getElementById("end").value;
         const sport = document.getElementById("sport").value;
 
-        const res = await fetch(`/api?start_date=${start}&end_date=${end}&sport=${sport}`);
+        const res = await fetch(`/?start_date=${start}&end_date=${end}&sport=${sport}`);
         const data = await res.json();
 
         document.getElementById("output").textContent =
@@ -43,7 +45,6 @@ def home():
     </script>
     """
 
-# API (IMPORTANT: ROOT, not /api)
 @app.get("/")
 def api(start_date: str, end_date: str, sport: str = "both"):
     return {"results": get_events(start_date, end_date, sport)}

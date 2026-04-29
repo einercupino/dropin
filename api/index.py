@@ -164,18 +164,20 @@ def home():
                 div.className = "facility";
             
                 const title = document.createElement("h3");
-            
                 const link = document.createElement("a");
                 const query = encodeURIComponent(fac.facility + " Toronto");
-            
+                
                 link.href = `https://www.google.com/maps/search/?api=1&query=${query}`;
                 link.target = "_blank";
+                link.textContent = fac.facility;
+                
+                // 👇 separate pin
                 const pin = document.createElement("span");
                 pin.textContent = "📍 ";
                 pin.style.marginRight = "5px";
                 
                 title.appendChild(pin);
-                title.appendChild(link); 
+                title.appendChild(link);
                 div.appendChild(title);
             
                 const list = document.createElement("ul");

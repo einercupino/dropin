@@ -8,6 +8,7 @@ from drop_in import get_events
 
 app = FastAPI()
 
+# UI page
 @app.get("/", response_class=HTMLResponse)
 def home():
     return """
@@ -36,7 +37,7 @@ def home():
         const end = document.getElementById("end").value;
         const sport = document.getElementById("sport").value;
 
-        const res = await fetch(`/?start_date=${start}&end_date=${end}&sport=${sport}`);
+        const res = await fetch(`/data?start_date=${start}&end_date=${end}&sport=${sport}`);
         const data = await res.json();
 
         document.getElementById("output").textContent =
@@ -45,6 +46,7 @@ def home():
     </script>
     """
 
-@app.get("/")
+# ✅ API MUST BE DIFFERENT ROUTE
+@app.get("/data")
 def api(start_date: str, end_date: str, sport: str = "both"):
     return {"results": get_events(start_date, end_date, sport)}

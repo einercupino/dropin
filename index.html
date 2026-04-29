@@ -1,0 +1,66 @@
+from http.server import BaseHTTPRequestHandler
+from urllib.parse import urlparse, parse_qs
+import json
+import sys
+
+# Import our helper functions from the parent directory.
+sys.path.append("..")  # ensure we can import drop_in.py
+try:
+    from drop_in import get_events
+except Exception:
+    # In case import fails, we provide a friendly error later
+    get_events = None
+
+
+class handler(BaseHTTPRequestHandler):
+    """
+    Vercel serverless function handler. Accepts GET requests with
+    query parameters:
+      - start_date (YYYY-MM-DD, required)
+      - end_date (YYYY-MM-DD, required)
+      - sport (optional: 'badminton', 'pickleball', or 'both'; defaults to 'both')
+    Responds with a JSON object containing a `results` array or an `error`.
+    """
+
+    def do_GET(self):
+        # Parse query parameters
+        parsed = urlparse(self.path)
+        qs = parse_qs(parsed.query)
+        start_date = qs.get("start_date", [""])[0]
+        end_date = qs.get("end_date", [""])[0]
+        sport = qs.get("sport", ["both"])[0]
+
+        # Validate required fields
+        if not start_date or not end_date:
+            self.send_response(400)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps({
+                "error": "start_date and end_date are required query parameters (YYYY-MM-DD)"
+            }).encode())
+            return
+
+        # If import failed earlier, report an error
+        if get_events is None:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps({
+                "error": "Server configuration error: unable to load backend functions"
+            }).encode())
+            return
+
+        try:
+            results = get_events(start_date, end_date, sport)
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            # Avoid caching: always fetch fresh data
+            self.send_header("Cache-Control", "s-maxage=0")
+            self.end_headers()
+            self.wfile.write(json.dumps({"results": results}).encode())
+        except Exception as e:
+            # Unexpected error; return 500 and message
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps({"error": str(e)}).encode())

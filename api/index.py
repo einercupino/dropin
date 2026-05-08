@@ -135,19 +135,20 @@ def home():
                     <div>
                         <label>Choose Sport</label><br>
                     
-                        <div style="display:flex; gap:15px; margin-top:8px;">
-                    
-                            <label style="font-weight:400;">
+                        <div class="checkbox-group">
+
+                            <label class="checkbox-label">
                                 <input type="checkbox" id="badminton" checked>
                                 Badminton
                             </label>
-                    
-                            <label style="font-weight:400;">
+                        
+                            <label class="checkbox-label">
                                 <input type="checkbox" id="pickleball" checked>
                                 Pickleball
                             </label>
-                    
+                        
                         </div>
+                        
                     </div>
             
                     <div style="align-self: flex-end;">

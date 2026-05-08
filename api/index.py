@@ -106,6 +106,12 @@ def home():
                 display: flex;
                 flex-direction: column;
             }
+
+            .checkbox-group {
+                display: flex;
+                gap: 15px;
+                margin-top: 8px;
+            }
         </style>
     </head>
 
@@ -127,12 +133,21 @@ def home():
                     </div>
             
                     <div>
-                        <label>Badminton or Pickleball</label><br>
-                        <select id="sport">
-                            <option value="both">Both</option>
-                            <option value="badminton">Badminton</option>
-                            <option value="pickleball">Pickleball</option>
-                        </select>
+                        <label>Choose Sport</label><br>
+                    
+                        <div style="display:flex; gap:15px; margin-top:8px;">
+                    
+                            <label style="font-weight:400;">
+                                <input type="checkbox" id="badminton" checked>
+                                Badminton
+                            </label>
+                    
+                            <label style="font-weight:400;">
+                                <input type="checkbox" id="pickleball" checked>
+                                Pickleball
+                            </label>
+                    
+                        </div>
                     </div>
             
                     <div style="align-self: flex-end;">
@@ -154,7 +169,21 @@ def home():
 
             const start = document.getElementById("start").value;
             const end = document.getElementById("end").value;
-            const sport = document.getElementById("sport").value;
+            const badminton = document.getElementById("badminton").checked;
+            const pickleball = document.getElementById("pickleball").checked;
+            
+            let sport = "both";
+            
+            if (badminton && !pickleball) {
+                sport = "badminton";
+            }
+            else if (!badminton && pickleball) {
+                sport = "pickleball";
+            }
+            else if (!badminton && !pickleball) {
+                output.innerHTML = "<p>Please select at least one sport.</p>";
+                return;
+            }
 
             const res = await fetch(`/data?start_date=${start}&end_date=${end}&sport=${sport}`);
             const data = await res.json();

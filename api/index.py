@@ -108,7 +108,8 @@ def home():
             }
 
             .checkbox-group {
-                display: flex;
+                display: flex !important;
+                flex-direction: row !important;
                 gap: 20px;
                 align-items: center;
                 margin-top: 8px;

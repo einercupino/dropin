@@ -109,8 +109,16 @@ def home():
 
             .checkbox-group {
                 display: flex;
-                gap: 15px;
+                gap: 20px;
+                align-items: center;
                 margin-top: 8px;
+            }
+            
+            .checkbox-label {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                font-weight: 400;
             }
         </style>
     </head>

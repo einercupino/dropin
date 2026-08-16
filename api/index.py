@@ -171,6 +171,12 @@ def home():
         </div>
         
         <script>
+
+        const today = new Date().toISOString().split("T")[0];
+
+        document.getElementById("start").value = today;
+        document.getElementById("end").value = today;
+
         async function search(e){
             e.preventDefault();
 
